@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đếm thời gian từ 11/05/2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf6e3;
+      color: #333;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      color: #ff6600;
+    }
+
+    .counter {
+      font-size: 32px;
+      margin-top: 20px;
+    }
+
+    .time-box {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 20px;
+      background: #fff3e0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .number {
+      font-weight: bold;
+      font-size: 36px;
+      color: #e65100;
+    }
+
+    .label {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Đếm thời gian kể từ 11/05/2025</h1>
+  <div class="counter">
+    <div class="time-box">
+      <div class="number" id="days">0</div>
+      <div class="label">Ngày</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="hours">0</div>
+      <div class="label">Giờ</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="minutes">0</div>
+      <div class="label">Phút</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="seconds">0</div>
+      <div class="label">Giây</div>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date("2025-05-11T00:00:00");
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      if (diff < 0) {
+        document.getElementById("days").textContent = "0";
+        document.getElementById("hours").textContent = "0";
+        document.getElementById("minutes").textContent = "0";
+        document.getElementById("seconds").textContent = "0";
+        return;
+      }
+
+      const seconds = Math.floor(diff / 1000) % 60;
+      const minutes = Math.floor(diff / (1000 * 60)) % 60;
+      const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCounter(); // cập nhật ngay khi tải trang
+    setInterval(updateCounter, 1000); // cập nhật mỗi giây
+  </script>
+</body>
+</html>
