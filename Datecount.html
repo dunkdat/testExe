@@ -2,75 +2,183 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Đếm thời gian từ 11/05/2025</title>
+  <title>Giới thiệu bản thân</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-k5Yl77SxV3+y+ECYHhUGuOz0zkKIEVqvGZoPczK3E7ZTUN7tSRDcKHoYHLOksMvMndL4avG7xkWlfyWTKcyp9g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #fdf6e3;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
       color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
       text-align: center;
-      padding-top: 50px;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ff9800;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
     }
 
     h1 {
-      color: #ff6600;
+      margin-top: 20px;
+      font-size: 36px;
+      color: #ff6f00;
+    }
+
+    .info {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    .socials {
+      margin-top: 15px;
+    }
+
+    .socials a {
+      display: inline-block;
+      margin: 0 12px;
+      color: #555;
+      font-size: 28px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .socials a:hover {
+      color: #ff6f00;
+      transform: scale(1.2);
+    }
+
+    h2 {
+      margin-top: 50px;
+      font-size: 24px;
+      color: #333;
     }
 
     .counter {
-      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
 
     .time-box {
-      display: inline-block;
-      margin: 0 10px;
+      background: #fff;
+      border-radius: 16px;
       padding: 20px;
-      background: #fff3e0;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .number {
-      font-weight: bold;
-      font-size: 36px;
+      font-size: 32px;
+      font-weight: 600;
       color: #e65100;
     }
 
     .label {
       font-size: 14px;
-      color: #555;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .time-box {
+        width: 80px;
+        padding: 15px;
+      }
+
+      .number {
+        font-size: 26px;
+      }
+
+      .socials a {
+        font-size: 24px;
+        margin: 0 8px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Đếm thời gian kể từ 11/05/2025</h1>
-  <div class="counter">
-    <div class="time-box">
-      <div class="number" id="days">0</div>
-      <div class="label">Ngày</div>
+  <div class="container">
+    <img src="deptrai.jpg" alt="Ảnh cá nhân" class="avatar">
+    <h1>Xin chào! Mình là Nguyễn Văn A</h1>
+    <p class="info"><strong>Ngày sinh:</strong> 25/08</p>
+
+    <div class="socials">
+      <a href="https://www.facebook.com/yourprofile" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/yourinsta" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
     </div>
-    <div class="time-box">
-      <div class="number" id="hours">0</div>
-      <div class="label">Giờ</div>
-    </div>
-    <div class="time-box">
-      <div class="number" id="minutes">0</div>
-      <div class="label">Phút</div>
-    </div>
-    <div class="time-box">
-      <div class="number" id="seconds">0</div>
-      <div class="label">Giây</div>
+
+    <h2>Đếm ngược tới sinh nhật tiếp theo 🎉</h2>
+    <div class="counter">
+      <div class="time-box">
+        <div class="number" id="days">0</div>
+        <div class="label">Ngày</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="hours">0</div>
+        <div class="label">Giờ</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">Phút</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="seconds">0</div>
+        <div class="label">Giây</div>
+      </div>
     </div>
   </div>
 
   <script>
-    const startDate = new Date("2025-05-11T00:00:00");
-
-    function updateCounter() {
+    function getNextBirthday(month, day) {
       const now = new Date();
-      let diff = now - startDate;
+      let year = now.getFullYear();
+      const birthdayThisYear = new Date(year, month - 1, day);
 
-      if (diff < 0) {
+      if (birthdayThisYear < now) {
+        year++;
+      }
+
+      return new Date(year, month - 1, day);
+    }
+
+    const birthday = getNextBirthday(8, 25); // 25/08
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = birthday - now;
+
+      if (diff <= 0) {
         document.getElementById("days").textContent = "0";
         document.getElementById("hours").textContent = "0";
         document.getElementById("minutes").textContent = "0";
@@ -89,8 +197,8 @@
       document.getElementById("seconds").textContent = seconds;
     }
 
-    updateCounter(); // cập nhật ngay khi tải trang
-    setInterval(updateCounter, 1000); // cập nhật mỗi giây
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
